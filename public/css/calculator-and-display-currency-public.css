@@ -2,3 +2,25 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.hlm p {
+    margin: 0;
+}
+.hlm-grid-inline {
+    display: inline-flex;
+    gap: 30px;
+    align-content: center;
+    justify-content: start;
+    align-items: baseline;
+}
+.hlm-grid-inline .hlm-col {
+    margin-bottom: 20px;
+}
+.hlm-grid {
+    display: flex;
+}
+.hlm-col-50 {
+    flex: 1 0 50%;
+    padding: 15px;
+    margin-bottom: 20px;
+}

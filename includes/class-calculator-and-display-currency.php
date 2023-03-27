@@ -112,6 +112,12 @@ class Calculator_And_Display_Currency {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-calculator-and-display-currency-i18n.php';
 
 		/**
+		 * functions
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'functions/money.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'functions/number.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-calculator-and-display-currency-admin.php';
@@ -122,6 +128,7 @@ class Calculator_And_Display_Currency {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-calculator-and-display-currency-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-harga-logam-mulia.php';
 
 		$this->loader = new Calculator_And_Display_Currency_Loader();
 
@@ -182,6 +189,11 @@ class Calculator_And_Display_Currency {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$harga_logam_mulia = new Calculator_And_Display_Currency\Front\Harga_Logam_Mulia( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'template_redirect', $harga_logam_mulia, 'get_list_harga_logam_mulia_by_ajax' );
+		$this->loader->add_action( 'template_redirect', $harga_logam_mulia, 'get_riwayat_harga_logam_mulia_by_ajax' );
+		
 	}
 
 	/**

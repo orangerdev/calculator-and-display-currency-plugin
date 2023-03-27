@@ -73,6 +73,8 @@ class Calculator_And_Display_Currency_Public {
 		 * class.
 		 */
 
+		 
+		wp_enqueue_style( 'jquery.dataTables', '//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css', array(), '1.13.4', 'all' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calculator-and-display-currency-public.css', array(), $this->version, 'all' );
 
 	}
@@ -96,8 +98,24 @@ class Calculator_And_Display_Currency_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calculator-and-display-currency-public.js', array( 'jquery' ), $this->version, false );
-
+		 
+		wp_enqueue_script( 'jquery.dataTables', '//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js', array( 'jquery' ), '1.13.4', true );
+		wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calculator-and-display-currency-public.js', array( 'jquery', 'chart-js' ), $this->version, true );
+		wp_localize_script( $this->plugin_name, 'hlm_vars', [
+			'get_list_harga_logam_mulia' => [
+				'ajax_url' => add_query_arg( [
+					'hlm-ajax' => 'get_list_harga_logam_mulia',
+					'nonce' => wp_create_nonce( 'get_list_harga_logam_mulia' )
+				], site_url() )
+			],
+			'get_riwayat_harga_logam_mulia' => [
+				'ajax_url' => add_query_arg( [
+					'hlm-ajax' => 'get_riwayat_harga_logam_mulia',
+					'nonce' => wp_create_nonce( 'get_riwayat_harga_logam_mulia' )
+				], site_url() )
+			],
+		] );
 	}
 
 }

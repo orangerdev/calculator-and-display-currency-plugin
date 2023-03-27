@@ -29,4 +29,72 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	let hlm_datatable = new DataTable('#hlm-datatable',{
+		searching: false,
+		processing: true,
+        serverSide: true,
+		ajax: {
+			url: hlm_vars.get_list_harga_logam_mulia.ajax_url,
+			data: function( d ) {
+				d.filter = $('#hlm-datatable-filter').serialize()
+			},
+			type: 'post',
+		},
+		columns: [
+			{ data: "date" },
+			{ data: "platinum" },
+			{ data: "palladium" },
+			{ data: "rhadium" }
+		]
+	});
+
+	const hlm_ctx = document.getElementById('hlm-chart-js');
+
+	var hlm_chart = new Chart(hlm_ctx, {
+	  type: 'line',
+	  data: {
+		labels: [],
+		datasets: []
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+
+	function hlm_get_chart_data() {
+
+		var filter = $('#hlm-datatable-filter').serialize();
+
+		$.ajax({
+			url: hlm_vars.get_riwayat_harga_logam_mulia.ajax_url,
+			type: 'post',
+			data: filter,
+			beforeSend: function(){
+			},
+			success: function(response){
+				console.log(response);
+
+				hlm_chart.data.labels = response.labels;
+				hlm_chart.data.datasets = response.datasets;
+				hlm_chart.update();
+
+			}
+		})
+	
+	}
+
+	hlm_get_chart_data();
+
+	$(document).on('change','#hlm-datatable-filter select',function(e){
+
+		e.preventDefault();
+		hlm_datatable.ajax.reload();
+		hlm_get_chart_data();
+
+	});
+
 })( jQuery );
