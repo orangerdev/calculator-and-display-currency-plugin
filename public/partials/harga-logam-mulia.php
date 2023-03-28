@@ -1,19 +1,23 @@
 <div class="hlm">
     <form id="hlm-datatable-filter" class="hlm-grid-inline" action="">
         <div class="hlm-col">
-            <label for="harga_dalam"><?php _e( 'Harga Dalam', 'calculator-and-display-currency' ); ?></label>
-            <select name="harga_dalam" id="harga_dalam">
-                <option value="USD / oz">USD / oz</option>
-            </select>
+            <div class="hlm-field-inline">
+                <label for="harga_dalam"><?php _e( 'Harga Dalam', 'calculator-and-display-currency' ); ?></label>
+                <select name="harga_dalam" id="harga_dalam">
+                    <option value="USD / oz">USD / oz</option>
+                </select>
+            </div>
         </div>
         <div class="hlm-col">
-            <label for="logam"><?php _e( 'Logam', 'calculator-and-display-currency' ); ?></label>
-            <select name="logam" id="logam">
-                <option value=""><?php _e( 'Semua', 'calculator-and-display-currency' ); ?></option>
-                <!-- <option value="platinum">Platinum</option>
-                <option value="palladium">Palladium</option>
-                <option value="rhadium">Rhadium</option> -->
-            </select>
+            <div class="hlm-field-inline">
+                <label for="logam"><?php _e( 'Logam', 'calculator-and-display-currency' ); ?></label>
+                <select name="logam" id="logam">
+                    <option value=""><?php _e( 'Semua', 'calculator-and-display-currency' ); ?></option>
+                    <!-- <option value="platinum">Platinum</option>
+                    <option value="palladium">Palladium</option>
+                    <option value="rhadium">Rhadium</option> -->
+                </select>
+            </div>
         </div>
         <div class="hlm-col">
             <div class="hlm-alert hlm-alert-warning">
@@ -45,7 +49,7 @@
                     <p class="hlm-saat-ini"><?php echo $hlm_saat_ini; ?></p>
                 </div>
                 <div class="hlm-chart-content">
-                    <canvas id="hlm-chart-js" height="130px"></canvas>
+                    <canvas id="hlm-chart-js" height="200px"></canvas>
                 </div>
             </div>
         </div>

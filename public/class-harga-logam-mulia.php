@@ -170,9 +170,9 @@ class Harga_Logam_Mulia {
 
 			foreach ( $posts as $key => $value ) :
 
-				$harga_platinum = hlm_convert_value_usd_to( $value->_harga_platinum, $currency );
-				$harga_palladium = hlm_convert_value_usd_to( $value->_harga_palladium, $currency ); 
-				$harga_rhadium = hlm_convert_value_usd_to( $value->_harga_rhadium, $currency );
+				$harga_platinum = hlm_convert_value_usd_to( floatval( $value->_harga_platinum ), $currency );
+				$harga_palladium = hlm_convert_value_usd_to( floatval( $value->_harga_palladium ), $currency ); 
+				$harga_rhadium = hlm_convert_value_usd_to( floatval( $value->_harga_rhadium ), $currency );
 
 				$data[] = [
 					'date' => date('d M Y',strtotime($value->post_date)),
@@ -256,6 +256,9 @@ class Harga_Logam_Mulia {
 			if ( isset( $filter['harga_dalam'] ) ) :
 			endif;
 
+			$args['order'] = 'asc';
+			$args['orderby'] = 'date';
+
 			$query = new \WP_Query( $args );
 		
 			$posts = $query->posts;
@@ -264,9 +267,9 @@ class Harga_Logam_Mulia {
 
 			foreach ( $posts as $key => $value ) :
 
-				$harga_platinum = $value->_harga_platinum;
-				$harga_palladium = $value->_harga_palladium; 
-				$harga_rhadium = $value->_harga_rhadium;
+				$harga_platinum = floatval($value->_harga_platinum);
+				$harga_palladium = floatval($value->_harga_palladium); 
+				$harga_rhadium = floatval($value->_harga_rhadium);
 
 				$date = date('M',strtotime($value->post_date));
 
