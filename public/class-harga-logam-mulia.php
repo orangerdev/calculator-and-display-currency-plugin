@@ -55,6 +55,7 @@ class Harga_Logam_Mulia {
 		$this->version = $version;
 
 		add_shortcode( 'harga_logam_mulia', [$this,'display_harga_logam_mulia'] );
+		add_shortcode( 'kalkulator_logam_mulia', [$this,'display_kalkulator_logam_mulia'] );
 
 	}
 
@@ -323,6 +324,23 @@ class Harga_Logam_Mulia {
 			wp_send_json( $response );
 
 		endif;
+
+	}
+
+	/**
+	 * Display kalkulator logam mulia
+	 * used by shortcode kalkulator_logam_mulia
+	 *
+	 * @since 1.0.0
+	 * @param array $atts
+	 * @return html
+	 */
+	public function display_kalkulator_logam_mulia( $atts )
+	{
+
+		ob_start();
+		include CALCULATOR_AND_DISPLAY_CURRENCY_PATH.'/public/partials/kalkulator-logam-mulia.php';
+		return ob_get_clean();
 
 	}
 
