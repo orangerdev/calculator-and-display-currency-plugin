@@ -54,20 +54,20 @@ class Harga_Logam_Mulia {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
-		add_shortcode( 'harga_logam_mulia', [$this,'display_harga_logam_mulia'] );
-		add_shortcode( 'kalkulator_logam_mulia', [$this,'display_kalkulator_logam_mulia'] );
+		add_shortcode( 'riwayat_harga_logam_mulia', [$this,'display_riwayat_harga_logam_mulia'] );
+		add_shortcode( 'kalkulator_harga_logam_mulia', [$this,'display_kalkulator_harga_logam_mulia'] );
 
 	}
 
     /**
-	 * Display harga logam mulai
+	 * Display riwayat harga logam mulai
 	 * used by shortcode harga_logam_mulai
 	 *
 	 * @since 1.0.0
 	 * @param array $atts
 	 * @return html
 	 */
-	public function display_harga_logam_mulia( $atts )
+	public function display_riwayat_harga_logam_mulia( $atts )
 	{
 
 		$update_date = get_lastpostdate( 'blog', 'harga-logam-mulia' );
@@ -331,14 +331,14 @@ class Harga_Logam_Mulia {
 	}
 
 	/**
-	 * Display kalkulator logam mulia
-	 * used by shortcode kalkulator_logam_mulia
+	 * Display kalkulator harga logam mulia
+	 * used by shortcode kalkulator_harga_logam_mulia
 	 *
 	 * @since 1.0.0
 	 * @param array $atts
 	 * @return html
 	 */
-	public function display_kalkulator_logam_mulia( $atts )
+	public function display_kalkulator_harga_logam_mulia( $atts )
 	{
 
 		ob_start();
