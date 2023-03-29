@@ -31,6 +31,15 @@
 
 	if ( $('#hlm-datatable').length > 0 ) {
 
+		$.blockUI({ 
+			message: '<p style="font-size:18px">Please wait...</p>',
+			css: { 
+				backgroundColor: 'transparent', 
+				color: '#fff',
+				border: 0
+			} 
+		});
+
 		let hlm_datatable = new DataTable('#hlm-datatable',{
 			searching: false,
 			processing: true,
@@ -50,9 +59,35 @@
 			]
 		});
 
-	}
+		hlm_datatable.on('preXhr.dt', function ( e, settings, data ) {
+			
+			$.blockUI({ 
+				message: '<p style="font-size:18px">Please wait...</p>',
+				css: { 
+					backgroundColor: 'transparent', 
+					color: '#fff',
+					border: 0
+				} 
+			});
 
-	if ( $('#hlm-chart-js').length > 0 ) {
+		} );
+
+		hlm_datatable.on('xhr.dt', function ( e, settings, data ) {
+			
+			var load_status = parseInt($('#hlm-load-status').val());
+			$('#hlm-load-status').val(load_status+1);
+			$('#hlm-load-status').trigger('change');
+
+		} );
+
+		$(document).on('change','#hlm-load-status',function(e){
+
+			e.preventDefault();
+			if ( $(this).val() == 2 ) {
+				$.unblockUI();
+			}
+
+		});
 
 		const hlm_ctx = document.getElementById('hlm-chart-js');
 
@@ -82,11 +117,14 @@
 				beforeSend: function(){
 				},
 				success: function(response){
-					console.log(response);
 
 					hlm_chart.data.labels = response.labels;
 					hlm_chart.data.datasets = response.datasets;
 					hlm_chart.update();
+
+					var load_status = parseInt($('#hlm-load-status').val());
+					$('#hlm-load-status').val(load_status+1);
+					$('#hlm-load-status').trigger('change');
 
 				}
 			})
@@ -98,8 +136,58 @@
 		$(document).on('change','#hlm-datatable-filter select',function(e){
 
 			e.preventDefault();
+
+			$('#hlm-load-status').val(0);
+
 			hlm_datatable.ajax.reload();
 			hlm_get_chart_data();
+
+			var val = $('#hlm-datatable-filter select#logam').val();
+			if ( val === 'platinum' ) {
+
+				var column = hlm_datatable.column(1);
+				column.visible(true);
+
+				var column = hlm_datatable.column(2);
+				column.visible(false);
+
+				var column = hlm_datatable.column(3);
+				column.visible(false);
+
+			} else if ( val === 'palladium' ) {
+
+				var column = hlm_datatable.column(1);
+				column.visible(false);
+
+				var column = hlm_datatable.column(2);
+				column.visible(true);
+
+				var column = hlm_datatable.column(3);
+				column.visible(false);
+
+			} else if ( val === 'rhadium' ) {
+
+				var column = hlm_datatable.column(1);
+				column.visible(false);
+
+				var column = hlm_datatable.column(2);
+				column.visible(false);
+
+				var column = hlm_datatable.column(3);
+				column.visible(true);
+
+			} else {
+
+				var column = hlm_datatable.column(1);
+				column.visible(true);
+
+				var column = hlm_datatable.column(2);
+				column.visible(true);
+
+				var column = hlm_datatable.column(3);
+				column.visible(true);
+
+			}
 
 		});
 

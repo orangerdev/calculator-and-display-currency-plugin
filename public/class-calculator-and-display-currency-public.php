@@ -99,6 +99,7 @@ class Calculator_And_Display_Currency_Public {
 		 */
 
 		 
+		wp_enqueue_script( 'jquery.blockUI', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js', array( 'jquery' ), '2.70', true );
 		wp_enqueue_script( 'jquery.dataTables', '//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js', array( 'jquery' ), '1.13.4', true );
 		wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calculator-and-display-currency-public.js', array( 'jquery', 'chart-js' ), $this->version, true );

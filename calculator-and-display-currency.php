@@ -13,7 +13,7 @@
  * @package           Calculator_And_Display_Currency
  *
  * @wordpress-plugin
- * Plugin Name:       Calculator and Display Currency
+ * Plugin Name:       Calculator and Display Currency, Shortcode: [riwayat_harga_logam_mulia] , [kalkulator_harga_logam_mulia]
  * Plugin URI:        https://ridwan-arifandi.com
  * Description:       Calculator and Display Currency
  * Version:           1.0.0

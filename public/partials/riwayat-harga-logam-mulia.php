@@ -4,7 +4,14 @@
             <div class="hlm-field-inline">
                 <label for="harga_dalam"><?php _e( 'Harga Dalam', 'calculator-and-display-currency' ); ?></label>
                 <select name="harga_dalam" id="harga_dalam">
-                    <option value="USD / oz">USD / oz</option>
+                    <?php
+                    $currencies = hlm_get_currencies();
+                    foreach ( $currencies as $key => $value) :
+                    ?>
+                        <option value="<?php echo $key; ?>"><?php echo $key; ?></option>
+                    <?php
+                    endforeach;
+                    ?>
                 </select>
             </div>
         </div>
@@ -13,9 +20,9 @@
                 <label for="logam"><?php _e( 'Logam', 'calculator-and-display-currency' ); ?></label>
                 <select name="logam" id="logam">
                     <option value=""><?php _e( 'Semua', 'calculator-and-display-currency' ); ?></option>
-                    <!-- <option value="platinum">Platinum</option>
+                    <option value="platinum">Platinum</option>
                     <option value="palladium">Palladium</option>
-                    <option value="rhadium">Rhadium</option> -->
+                    <option value="rhadium">Rhadium</option>
                 </select>
             </div>
         </div>
@@ -26,6 +33,7 @@
         </div>
     </form>
     <div class="hlm-grid">
+        <input type="hidden" id="hlm-load-status" value="0">
         <div class="hlm-col-50">
             <table id="hlm-datatable">
                 <thead>
