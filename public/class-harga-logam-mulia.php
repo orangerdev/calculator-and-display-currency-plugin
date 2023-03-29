@@ -84,7 +84,7 @@ class Harga_Logam_Mulia {
 		endif;
 
 		ob_start();
-		include CALCULATOR_AND_DISPLAY_CURRENCY_PATH.'/public/partials/harga-logam-mulia.php';
+		include CALCULATOR_AND_DISPLAY_CURRENCY_PATH.'/public/partials/riwayat-harga-logam-mulia.php';
 		return ob_get_clean();
 
 	}
@@ -342,7 +342,7 @@ class Harga_Logam_Mulia {
 	{
 
 		ob_start();
-		include CALCULATOR_AND_DISPLAY_CURRENCY_PATH.'/public/partials/kalkulator-logam-mulia.php';
+		include CALCULATOR_AND_DISPLAY_CURRENCY_PATH.'/public/partials/kalkulator-harga-logam-mulia.php';
 		return ob_get_clean();
 
 	}
