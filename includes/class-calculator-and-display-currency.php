@@ -116,6 +116,7 @@ class Calculator_And_Display_Currency {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'functions/money.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'functions/number.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'functions/calculator.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -170,6 +171,7 @@ class Calculator_And_Display_Currency {
 
 		$this->loader->add_action( 'init', $harga_logam_mulia, 'setup_custom_post_type' );
 		$this->loader->add_action( 'carbon_fields_register_fields', $harga_logam_mulia, 'setup_post_meta' );
+		$this->loader->add_action( 'carbon_fields_register_fields', $harga_logam_mulia, 'setup_plugin_options' );
 		$this->loader->add_action( 'manage_harga-logam-mulia_posts_columns', $harga_logam_mulia, 'setup_custom_columns' );
 		$this->loader->add_action( 'manage_harga-logam-mulia_posts_custom_column', $harga_logam_mulia, 'display_custom_columns', 10, 2 );
 		
@@ -193,6 +195,7 @@ class Calculator_And_Display_Currency {
 
 		$this->loader->add_action( 'template_redirect', $harga_logam_mulia, 'get_list_harga_logam_mulia_by_ajax' );
 		$this->loader->add_action( 'template_redirect', $harga_logam_mulia, 'get_riwayat_harga_logam_mulia_by_ajax' );
+		$this->loader->add_action( 'template_redirect', $harga_logam_mulia, 'count_kalkulator_harga_logam_mulia_by_ajax' );
 		
 	}
 

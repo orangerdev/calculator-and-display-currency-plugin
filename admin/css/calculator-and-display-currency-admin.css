@@ -2,3 +2,8 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+li.cf-complex__tabs-item.cf-complex__tabs-item--tabbed-vertical.cf-complex__tabs-item--current {
+    background: #2271B1;
+    color: #fff;
+}

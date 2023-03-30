@@ -131,6 +131,184 @@ class Harga_Logam_Mulia {
 
     }
 
+	public  function setup_plugin_options() {
+
+		$hlm_usd_idr_rate = '';
+		if ( isset( $_GET['page'] ) && $_GET['page'] === 'hlm-calculator-options' ) :
+			$usd_idr_rate = hlm_get_currency_rate( 'USD', 'IDR' );
+			$hlm_usd_idr_rate = '<h3>USD to IDR Rate</h3><p>$1 = '.hlm_formatted_currency( $usd_idr_rate, 'left', 'Rp' ).'</p><p>Data Source: https://finance.yahoo.com/, On GMT Date: '.current_time('Y-m-d H:i:s', true).'</p>';
+		endif;
+
+		$hlm_pre_data_calc = array (
+			array (
+				'title' => 'u55',
+				'weight' => '0.65',
+				'pt' => '1.85',
+				'pd' => '',
+				'ph' => '0.37',
+			),
+			array (
+				'title' => 'na4',
+				'weight' => '0.43',
+				'pt' => '1.80',
+				'pd' => '2.50',
+				'ph' => '0.70',
+			),
+			array (
+				'title' => 'na5',
+				'weight' => '0.32',
+				'pt' => '1.90',
+				'pd' => '',
+				'ph' => '0.42',
+			),
+			array (
+				'title' => 't30',
+				'weight' => '0.56',
+				'pt' => '2.09',
+				'pd' => '',
+				'ph' => '0.46',
+			),
+			array (
+				'title' => 'tj3',
+				'weight' => '0.55',
+				'pt' => '',
+				'pd' => '3.00',
+				'ph' => '0.19',
+			),
+			array (
+				'title' => 'uf5',
+				'weight' => '0.64',
+				'pt' => '',
+				'pd' => '3.49',
+				'ph' => '0.20',
+			),
+			array (
+				'title' => 't23',
+				'weight' => '0.52',
+				'pt' => '2.51',
+				'pd' => '',
+				'ph' => '0.72',
+			),
+			array (
+				'title' => 'futura',
+				'weight' => '0.56',
+				'pt' => '',
+				'pd' => '1.25',
+				'ph' => '0.171',
+			),
+			array (
+				'title' => 'long code',
+				'weight' => '0.56',
+				'pt' => '',
+				'pd' => '0.54',
+				'ph' => '0.262',
+			),
+			array (
+				'title' => 'ss',
+				'weight' => '0.56',
+				'pt' => '',
+				'pd' => '0.53',
+				'ph' => '0.27',
+			),
+			array (
+				'title' => 'v3 left',
+				'weight' => '0.38',
+				'pt' => '0.627',
+				'pd' => '2.23',
+				'ph' => '0.81',
+			),
+			array (
+				'title' => 'v3 right',
+				'weight' => '0.5',
+				'pt' => '0.557',
+				'pd' => '3.661',
+				'ph' => '0.617',
+			),
+			array (
+				'title' => 'nf4',
+				'weight' => '0.43',
+				'pt' => '',
+				'pd' => '7.8',
+				'ph' => '0.2',
+			),
+			array (
+				'title' => 'nf5',
+				'weight' => '0.38',
+				'pt' => '',
+				'pd' => '2.9',
+				'ph' => '0.124',
+			),
+			array (
+				'title' => 'jazz 2 sen',
+				'weight' => '0.62',
+				'pt' => '0.46',
+				'pd' => '9',
+				'ph' => '0.568',
+			),
+			array (
+				'title' => 'jazz 1 sen',
+				'weight' => '0.62',
+				'pt' => '0.4',
+				'pd' => '4.5',
+				'ph' => '0.9',
+			),
+			array (
+				'title' => 'bz210',
+				'weight' => '0.22',
+				'pt' => '',
+				'pd' => '1.327',
+				'ph' => '0.325',
+			),
+			array (
+				'title' => 'bz220',
+				'weight' => '0.22',
+				'pt' => '',
+				'pd' => '0.533',
+				'ph' => '0.062',
+			),
+			array (
+				'title' => 'bz130',
+				'weight' => '0.26',
+				'pt' => '',
+				'pd' => '0.8',
+				'ph' => '0',
+			),
+			array (
+				'title' => 'rs bawa',
+				'weight' => '0.32',
+				'pt' => '',
+				'pd' => '1.2',
+				'ph' => '0.46',
+			),
+		);
+
+		Container::make( 'theme_options', __( 'Calculator Options' ) )
+			->set_page_file( 'hlm-calculator-options' )
+			->set_page_parent( 'edit.php?post_type=harga-logam-mulia' )
+			->add_fields( array(
+				Field::make( 'html', 'hlm_usd_idr_rate', 'USD to IDR Rate' )
+					->set_html( $hlm_usd_idr_rate ),
+				Field::make( 'complex', 'hlm_pre_data_calc', 'Pre Data Calculator' )
+					->set_layout( 'tabbed-vertical' )
+					->add_fields( array(
+						Field::make( 'text', 'title', __( 'Title' ) ),
+						Field::make( 'text', 'weight', __( 'Weight' ) ),
+						Field::make( 'text', 'pt', __( 'PT' ) ),
+						Field::make( 'text', 'pd', __( 'PD' ) ),
+						Field::make( 'text', 'ph', __( 'PH' ) ),
+					) )
+					->set_default_value($hlm_pre_data_calc)
+					->set_header_template( '
+						<% if (title) { %>
+							<%- $_index+1 %>. <%- title %>
+						<% } else { %>
+							<%- $_index+1 %>.
+						<% } %>
+					' )
+			) );
+			
+	}
+
 	public function setup_custom_columns( $columns ) {
 
 		if ( isset( $columns['title'] ) ) :

@@ -127,7 +127,7 @@
 					$('#hlm-load-status').trigger('change');
 
 				}
-			})
+			});
 		
 		}
 
@@ -192,5 +192,81 @@
 		});
 
 	}
+
+	$(document).on('change','.calc-field',function(e){
+		$('.hlm-harga-usd').text('_');
+		$('.hlm-harga-result').text('_');
+	});
+
+	$(document).on('change','#calc_title',function(e){
+
+		e.preventDefault();
+
+		var calc_weight = '';
+		var calc_pt = '';
+		var calc_pd = '';
+		var calc_ph = '';
+		var val = $(this).val();
+		var calc_titles = hlm_vars.calculator_title;
+
+		if ( val && val in calc_titles ) {
+			calc_weight = calc_titles[val].weight;
+			calc_pt = calc_titles[val].pt;
+			calc_pd = calc_titles[val].pd;
+			calc_ph = calc_titles[val].ph;
+		}
+
+		$('#calc_weight').val(calc_weight);
+		$('#calc_pt').val(calc_pt);
+		$('#calc_pd').val(calc_pd);
+		$('#calc_ph').val(calc_ph);
+
+	});
+
+	$(document).on('change','#mata_uang',function(e){
+
+		e.preventDefault();
+
+		var val = $(this).val();
+		$('.hlm-harga-result-currency').text(val);
+		$('.hlm-harga-result').text('_');
+
+	});
+
+	$(document).on('submit','#kalkulator-logam-mulia',function(e){
+
+		e.preventDefault();
+
+		var formdata = new FormData(this);
+
+		$.ajax({
+			url: hlm_vars.count_kalkulator_harga_logam_mulia.ajax_url,
+			type: 'post',
+			data: formdata,
+			processData: false,
+			contentType: false,
+			beforeSend: function(){
+				
+				$.blockUI({ 
+					message: '<p style="font-size:18px">Please wait...</p>',
+					css: { 
+						backgroundColor: 'transparent', 
+						color: '#fff',
+						border: 0
+					} 
+				});
+
+			},
+			success: function(response){
+
+				$.unblockUI();
+
+				$('.hlm-harga-usd').text(response.harga_usd);
+				$('.hlm-harga-result').text(response.harga_konversi);
+
+			}
+		});
+
+	});
 
 })( jQuery );

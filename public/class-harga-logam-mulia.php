@@ -449,4 +449,86 @@ class Harga_Logam_Mulia {
 
 	}
 
+	public function count_kalkulator_harga_logam_mulia_by_ajax() 
+	{
+
+		if ( isset( $_REQUEST['hlm-ajax'], $_REQUEST['nonce'] ) &&
+			$_REQUEST['hlm-ajax'] === 'count_kalkulator_harga_logam_mulia' &&
+			wp_verify_nonce( $_REQUEST['nonce'], 'count_kalkulator_harga_logam_mulia' ) ) :
+
+			$_request = wp_parse_args( $_REQUEST, [
+				'title' => '',
+				'weight' => 0,
+				'pt' => 0,
+				'pd' => 0,
+				'ph' => 0,
+				'mata_uang' => ''
+			] );
+
+			$harga_usd = '_';
+			$harga_konversi = '_';
+
+			$args = [
+				'post_type' => 'harga-logam-mulia',
+				'offset' => 0,
+				'posts_per_page' => 1,
+				'no_found_rows' => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'post_status' => 'publish',
+				'order' => 'desc',
+				'orderby' => 'date'
+			];
+
+			$hlms = get_posts( $args );
+			if ( isset( $hlms[0] ) && !empty( $hlms[0] ) ) :
+				
+				$hlm = $hlms[0];
+				$PT = floatval( $_request['pt'] );
+				$PD = floatval( $_request['pd'] );
+				$RH = floatval( $_request['ph'] );
+				$Weight = floatval( $_request['weight'] );
+
+				$currency = 'USD';
+				if ( !empty( $_request['mata_uang'] ) ) :
+					$currency = $_request['mata_uang'];
+				endif;
+				$rate = hlm_get_currency_rate( 'USD', $currency );
+
+				$Harga_Dollar = $rate;
+	
+				$Harga_PT = floatval( $hlm->_harga_platinum );
+				$Harga_PD = floatval( $hlm->_harga_palladium );
+				$Harga_RH = floatval( $hlm->_harga_rhadium );
+	
+				$harga_konversi = ( ( ( $PT * $Harga_PT ) + ( $PD * $Harga_PD ) + ( $RH * $Harga_RH ) ) * ( $Harga_Dollar * 0.9 * $Weight ) ) - ( $Weight * 10 * $Harga_Dollar );
+		
+				$currencies = hlm_get_currencies();
+				if ( isset( $currencies[$currency]['position'], $currencies[$currency]['symbol'] ) ) :
+					$currency_pos = $currencies[$currency]['position'];
+					$currency_symbol = $currencies[$currency]['symbol'];
+				else:
+					$currency_pos = 'left';
+					$currency_symbol = '$';
+				endif;
+
+				$rate_usd = hlm_get_currency_rate( $currency, 'USD' );
+				$harga_usd = $harga_konversi * $rate_usd;
+				$harga_usd = hlm_formatted_currency( $harga_usd, 'left', '$' );
+
+				$harga_konversi = hlm_formatted_currency( $harga_konversi, $currency_pos, $currency_symbol );
+	
+			endif;
+
+			$response = [
+				'harga_usd' => $harga_usd,
+				'harga_konversi' => $harga_konversi,
+			];
+
+			wp_send_json( $response );
+
+		endif;
+
+	}
+
 }
