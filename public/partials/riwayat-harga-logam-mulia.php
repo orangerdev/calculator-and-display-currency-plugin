@@ -33,7 +33,8 @@
         </div>
     </form>
     <div class="hlm-grid">
-        <input type="hidden" id="hlm-load-status" value="0">
+        <input type="hidden" id="hlm-table-load-status" value="">
+        <input type="hidden" id="hlm-chart-load-status" value="">
         <div class="hlm-col-50">
             <table id="hlm-datatable">
                 <thead>

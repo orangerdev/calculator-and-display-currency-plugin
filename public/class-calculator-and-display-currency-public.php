@@ -73,7 +73,7 @@ class Calculator_And_Display_Currency_Public {
 		 * class.
 		 */
 
-		 
+		wp_enqueue_style( 'freeze-ui', plugin_dir_url( __FILE__ ) . 'css/freeze-ui.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery.dataTables', '//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css', array(), '1.13.4', 'all' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calculator-and-display-currency-public.css', array(), $this->version, 'all' );
 
@@ -100,7 +100,8 @@ class Calculator_And_Display_Currency_Public {
 
 		$calculator_title = hlm_get_calculator_title();
 		 
-		wp_enqueue_script( 'jquery.blockUI', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js', array( 'jquery' ), '2.70', true );
+		// wp_enqueue_script( 'jquery.blockUI', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js', array( 'jquery' ), '2.70', true );
+		wp_enqueue_script( 'freeze-ui', plugin_dir_url( __FILE__ ) . 'js/freeze-ui.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( 'jquery.dataTables', '//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js', array( 'jquery' ), '1.13.4', true );
 		wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calculator-and-display-currency-public.js', array( 'jquery', 'chart-js' ), $this->version, true );

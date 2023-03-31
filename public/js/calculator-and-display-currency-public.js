@@ -31,14 +31,7 @@
 
 	if ( $('#hlm-datatable').length > 0 ) {
 
-		$.blockUI({ 
-			message: '<p style="font-size:18px">Please wait...</p>',
-			css: { 
-				backgroundColor: 'transparent', 
-				color: '#fff',
-				border: 0
-			} 
-		});
+		FreezeUI();
 
 		let hlm_datatable = new DataTable('#hlm-datatable',{
 			searching: false,
@@ -51,6 +44,7 @@
 				},
 				type: 'post',
 			},
+			order: [[0, 'desc']],
 			columns: [
 				{ data: "date" },
 				{ data: "platinum" },
@@ -61,30 +55,37 @@
 
 		hlm_datatable.on('preXhr.dt', function ( e, settings, data ) {
 			
-			$.blockUI({ 
-				message: '<p style="font-size:18px">Please wait...</p>',
-				css: { 
-					backgroundColor: 'transparent', 
-					color: '#fff',
-					border: 0
-				} 
-			});
+			$('#hlm-table-load-status').val('loading').trigger('change');
+			FreezeUI();
 
 		} );
 
 		hlm_datatable.on('xhr.dt', function ( e, settings, data ) {
 			
-			var load_status = parseInt($('#hlm-load-status').val());
-			$('#hlm-load-status').val(load_status+1);
-			$('#hlm-load-status').trigger('change');
+			$('#hlm-table-load-status').val('done').trigger('change');
 
 		} );
 
-		$(document).on('change','#hlm-load-status',function(e){
+		$(document).on('change','#hlm-table-load-status',function(e){
 
 			e.preventDefault();
-			if ( $(this).val() == 2 ) {
-				$.unblockUI();
+			var chart_load_status = $('#hlm-chart-load-status').val();
+			
+			var val = $(this).val();
+			if ( val === 'done' && chart_load_status === 'done' ) {
+				UnFreezeUI();
+			}
+
+		});
+
+		$(document).on('change','#hlm-chart-load-status',function(e){
+
+			e.preventDefault();
+			var table_load_status = $('#hlm-table-load-status').val();
+			
+			var val = $(this).val();
+			if ( val === 'done' && table_load_status === 'done' ) {
+				UnFreezeUI();
 			}
 
 		});
@@ -115,6 +116,9 @@
 				type: 'post',
 				data: filter,
 				beforeSend: function(){
+
+					$('#hlm-chart-load-status').val('loading').trigger('change');
+
 				},
 				success: function(response){
 
@@ -122,9 +126,7 @@
 					hlm_chart.data.datasets = response.datasets;
 					hlm_chart.update();
 
-					var load_status = parseInt($('#hlm-load-status').val());
-					$('#hlm-load-status').val(load_status+1);
-					$('#hlm-load-status').trigger('change');
+					$('#hlm-chart-load-status').val('done').trigger('change');
 
 				}
 			});
@@ -136,8 +138,6 @@
 		$(document).on('change','#hlm-datatable-filter select',function(e){
 
 			e.preventDefault();
-
-			$('#hlm-load-status').val(0);
 
 			hlm_datatable.ajax.reload();
 			hlm_get_chart_data();
@@ -247,19 +247,12 @@
 			contentType: false,
 			beforeSend: function(){
 				
-				$.blockUI({ 
-					message: '<p style="font-size:18px">Please wait...</p>',
-					css: { 
-						backgroundColor: 'transparent', 
-						color: '#fff',
-						border: 0
-					} 
-				});
+				FreezeUI();
 
 			},
 			success: function(response){
 
-				$.unblockUI();
+				UnFreezeUI();
 
 				$('.hlm-harga-usd').text(response.harga_usd);
 				$('.hlm-harga-result').text(response.harga_konversi);
