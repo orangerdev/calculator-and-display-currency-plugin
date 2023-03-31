@@ -16,7 +16,7 @@
  * Plugin Name:       Calculator and Display Currency
  * Plugin URI:        https://ridwan-arifandi.com
  * Description:       Calculator and Display Currency, Shortcode: [riwayat_harga_logam_mulia] , [kalkulator_harga_logam_mulia]
- * Version:           1.0.0
+ * Version:           1.0.2
  * Author:            Orangerdev Team
  * Author URI:        https://ridwan-arifandi.com
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CALCULATOR_AND_DISPLAY_CURRENCY_VERSION', '1.0.0' );
+define( 'CALCULATOR_AND_DISPLAY_CURRENCY_VERSION', '1.0.2' );
 
 define( 'CALCULATOR_AND_DISPLAY_CURRENCY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CALCULATOR_AND_DISPLAY_CURRENCY_URI', plugin_dir_url( __FILE__ ) );
