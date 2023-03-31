@@ -126,6 +126,11 @@
 					hlm_chart.data.datasets = response.datasets;
 					hlm_chart.update();
 
+					$('.hlm-latest-price-date').text(response.latest_price_date);
+					$('.hlm-saat-ini-plt').text(response.latest_price_platinum);
+					$('.hlm-saat-ini-pal').text(response.latest_price_palladium);
+					$('.hlm-saat-ini-rho').text(response.latest_price_rhodium);
+
 					$('#hlm-chart-load-status').val('done').trigger('change');
 
 				}

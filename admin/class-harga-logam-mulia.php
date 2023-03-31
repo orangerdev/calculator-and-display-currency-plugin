@@ -62,10 +62,10 @@ class Harga_Logam_Mulia {
     public function setup_custom_post_type() {
 
 		$labels = array(
-			'name'                  => _x( 'Harga Logam Mulia', 'Post Type General Name', 'calculator-and-display-currency' ),
-			'singular_name'         => _x( 'Harga Logam Mulia', 'Post Type Singular Name', 'calculator-and-display-currency' ),
-			'menu_name'             => __( 'Harga Logam Mulia', 'calculator-and-display-currency' ),
-			'name_admin_bar'        => __( 'Harga Logam Mulia', 'calculator-and-display-currency' ),
+			'name'                  => _x( 'Precious Metal Prices', 'Post Type General Name', 'calculator-and-display-currency' ),
+			'singular_name'         => _x( 'Precious Metal Prices', 'Post Type Singular Name', 'calculator-and-display-currency' ),
+			'menu_name'             => __( 'Precious Metal Prices', 'calculator-and-display-currency' ),
+			'name_admin_bar'        => __( 'Precious Metal Prices', 'calculator-and-display-currency' ),
 			'archives'              => __( 'Item Archives', 'calculator-and-display-currency' ),
 			'attributes'            => __( 'Item Attributes', 'calculator-and-display-currency' ),
 			'parent_item_colon'     => __( 'Parent Item:', 'calculator-and-display-currency' ),
@@ -91,8 +91,8 @@ class Harga_Logam_Mulia {
 			'filter_items_list'     => __( 'Filter items list', 'calculator-and-display-currency' ),
 		);
 		$args = array(
-			'label'                 => __( 'Harga Logam Mulia', 'calculator-and-display-currency' ),
-			'description'           => __( 'Harga Logam Mulia', 'calculator-and-display-currency' ),
+			'label'                 => __( 'Precious Metal Prices', 'calculator-and-display-currency' ),
+			'description'           => __( 'Precious Metal Prices', 'calculator-and-display-currency' ),
 			'labels'                => $labels,
 			'supports'              => false,
 			'taxonomies'            => array(),
@@ -118,14 +118,14 @@ class Harga_Logam_Mulia {
 
     public function setup_post_meta() {
 
-        Container::make( 'post_meta', 'Harga Logam Mulia' )
+        Container::make( 'post_meta', 'Precious Metal Prices' )
             ->where( 'post_type', '=', 'harga-logam-mulia' )
             ->add_fields( array(
-				Field::make( 'text', 'harga_platinum', __( 'Harga Platinum ($)' ) )
+				Field::make( 'text', 'harga_platinum', __( 'Platinum Price ($)' ) )
 					->set_attribute( 'type', 'number' ),
-				Field::make( 'text', 'harga_palladium', __( 'Harga Palladium ($)' ) )
+				Field::make( 'text', 'harga_palladium', __( 'Palladium Price ($)' ) )
 					->set_attribute( 'type', 'number' ),
-				Field::make( 'text', 'harga_rhadium', __( 'Harga Rhadium ($)' ) )
+				Field::make( 'text', 'harga_rhadium', __( 'Rhodium Price ($)' ) )
 					->set_attribute( 'type', 'number' ),
             ));
 
@@ -136,7 +136,7 @@ class Harga_Logam_Mulia {
 		$hlm_usd_idr_rate = '';
 		if ( isset( $_GET['page'] ) && $_GET['page'] === 'hlm-calculator-options' ) :
 			$usd_idr_rate = hlm_get_currency_rate( 'USD', 'IDR' );
-			$hlm_usd_idr_rate = '<h3>USD to IDR Rate</h3><p>$1 = '.hlm_formatted_currency( $usd_idr_rate, 'left', 'Rp' ).'</p><p>Data Source: https://finance.yahoo.com/, On GMT Date: '.current_time('Y-m-d H:i:s', true).'</p>';
+			$hlm_usd_idr_rate = '<h3>USD to IDR Rate</h3><p>$1 = '.hlm_formatted_currency( $usd_idr_rate, 'left', 'Rp' ).'</p><p>Data Source: https://finance.yahoo.com/quote/usdidr=X/, On GMT Date: '.current_time('Y-m-d H:i:s', true).'</p>';
 		endif;
 
 		$hlm_pre_data_calc = array (
@@ -286,6 +286,16 @@ class Harga_Logam_Mulia {
 			->set_page_file( 'hlm-calculator-options' )
 			->set_page_parent( 'edit.php?post_type=harga-logam-mulia' )
 			->add_fields( array(
+				Field::make( 'separator', 'metal_price', __( 'Metal Price' ) ),
+				Field::make( 'text', 'mp_pt', __( 'PT' ) )
+					->set_width(33)
+					->set_default_value(29),
+				Field::make( 'text', 'mp_pd', __( 'PD' ) )
+					->set_width(33)
+					->set_default_value(46),
+				Field::make( 'text', 'mp_rh', __( 'RH' ) )
+					->set_width(33)
+					->set_default_value(345),
 				Field::make( 'html', 'hlm_usd_idr_rate', 'USD to IDR Rate' )
 					->set_html( $hlm_usd_idr_rate ),
 				Field::make( 'complex', 'hlm_pre_data_calc', 'Pre Data Calculator' )
@@ -295,7 +305,7 @@ class Harga_Logam_Mulia {
 						Field::make( 'text', 'weight', __( 'Weight' ) ),
 						Field::make( 'text', 'pt', __( 'PT' ) ),
 						Field::make( 'text', 'pd', __( 'PD' ) ),
-						Field::make( 'text', 'ph', __( 'PH' ) ),
+						Field::make( 'text', 'ph', __( 'RH' ) ),
 					) )
 					->set_default_value($hlm_pre_data_calc)
 					->set_header_template( '
@@ -315,9 +325,9 @@ class Harga_Logam_Mulia {
 			unset($columns['title']);
 		endif;
 
-		$columns['platinum'] = __('Harga Platinum ($)', 'calculator-and-display-currency');
-		$columns['palladium'] = __('Harga Palladium ($)', 'calculator-and-display-currency');
-		$columns['rhadium'] = __('Harga Rhadium ($)', 'calculator-and-display-currency');
+		$columns['platinum'] = __('Platinum Price ($)', 'calculator-and-display-currency');
+		$columns['palladium'] = __('Palladium Price ($)', 'calculator-and-display-currency');
+		$columns['rhadium'] = __('Rhodium Price ($)', 'calculator-and-display-currency');
 
 		return $columns;
 
