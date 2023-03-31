@@ -55,7 +55,7 @@
             <div class="hlm-chart">
                 <div class="hlm-chart-header">
                     <h3><?php echo sprintf( _x( 'Latest Prices: %s','calculator-and-display-currency' ), '<span class="hlm-latest-price-date">_</span>' ); ?></h3>
-                    <div class="hlm-grid">
+                    <div class="hlm-grid" style="flex-wrap: wrap;">
                         <div class="hlm-col-33">
                             <div class="hlm-ltp-item">
                                 <p><?php _e( 'Platinum','calculator-and-display-currency' ); ?></p>
