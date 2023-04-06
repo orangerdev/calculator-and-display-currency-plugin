@@ -2,20 +2,20 @@
     <div class="hlm-grid">
         <div class="hlm-col-50">
             <div class="hlm-box">
-                <div class="hlm-field">
+                <!-- <div class="hlm-field">
                     <label for="calc_title"><?php _e('Title','calculator-and-display-currency'); ?></label>
                     <select name="title" id="calc_title" placeholder="<?php _e('Select Title','calculator-and-display-currency'); ?>" class="calc-field">
                         <option value=""><?php _e('Select Title'); ?></option>
                         <?php
-                        $calculator_title = hlm_get_calculator_title();
-                        foreach ( $calculator_title as $key => $value) :
+                        // $calculator_title = hlm_get_calculator_title();
+                        // foreach ( $calculator_title as $key => $value) :
                         ?>
-                            <option value="<?php echo $key; ?>"><?php echo $key; ?></option>
+                            <option value="<?php //echo $key; ?>"><?php //echo $key; ?></option>
                         <?php
-                        endforeach;
+                        // endforeach;
                         ?>
                     </select>
-                </div>
+                </div> -->
                 <div class="hlm-field">
                     <label for="calc_weight"><?php _e('Weight','calculator-and-display-currency'); ?></label>
                     <input type="text" name="weight" id="calc_weight" placeholder="<?php _e('Enter Weight','calculator-and-display-currency'); ?>" class="calc-field">

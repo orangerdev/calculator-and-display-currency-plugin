@@ -98,7 +98,7 @@ class Calculator_And_Display_Currency_Public {
 		 * class.
 		 */
 
-		$calculator_title = hlm_get_calculator_title();
+		// $calculator_title = hlm_get_calculator_title();
 		 
 		// wp_enqueue_script( 'jquery.blockUI', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js', array( 'jquery' ), '2.70', true );
 		wp_enqueue_script( 'freeze-ui', plugin_dir_url( __FILE__ ) . 'js/freeze-ui.min.js', array( 'jquery' ), $this->version, true );
@@ -124,7 +124,7 @@ class Calculator_And_Display_Currency_Public {
 					'nonce' => wp_create_nonce( 'count_kalkulator_harga_logam_mulia' )
 				], site_url() )
 			],
-			'calculator_title' => $calculator_title
+			// 'calculator_title' => $calculator_title
 		] );
 	}
 

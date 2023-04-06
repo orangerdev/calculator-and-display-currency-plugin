@@ -203,30 +203,30 @@
 		$('.hlm-harga-result').text('_');
 	});
 
-	$(document).on('change','#calc_title',function(e){
+	// $(document).on('change','#calc_title',function(e){
 
-		e.preventDefault();
+	// 	e.preventDefault();
 
-		var calc_weight = '';
-		var calc_pt = '';
-		var calc_pd = '';
-		var calc_ph = '';
-		var val = $(this).val();
-		var calc_titles = hlm_vars.calculator_title;
+	// 	var calc_weight = '';
+	// 	var calc_pt = '';
+	// 	var calc_pd = '';
+	// 	var calc_ph = '';
+	// 	var val = $(this).val();
+	// 	var calc_titles = hlm_vars.calculator_title;
 
-		if ( val && val in calc_titles ) {
-			calc_weight = calc_titles[val].weight;
-			calc_pt = calc_titles[val].pt;
-			calc_pd = calc_titles[val].pd;
-			calc_ph = calc_titles[val].ph;
-		}
+	// 	if ( val && val in calc_titles ) {
+	// 		calc_weight = calc_titles[val].weight;
+	// 		calc_pt = calc_titles[val].pt;
+	// 		calc_pd = calc_titles[val].pd;
+	// 		calc_ph = calc_titles[val].ph;
+	// 	}
 
-		$('#calc_weight').val(calc_weight);
-		$('#calc_pt').val(calc_pt);
-		$('#calc_pd').val(calc_pd);
-		$('#calc_ph').val(calc_ph);
+	// 	$('#calc_weight').val(calc_weight);
+	// 	$('#calc_pt').val(calc_pt);
+	// 	$('#calc_pd').val(calc_pd);
+	// 	$('#calc_ph').val(calc_ph);
 
-	});
+	// });
 
 	$(document).on('change','#mata_uang',function(e){
 
